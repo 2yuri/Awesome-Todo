@@ -14,8 +14,6 @@ module.exports = {
     browser: true
   },
 
-  /* eslint-disable */
-  'task': require('../components/Task.vue').default
 
   // Rules order is important, please avoid shuffling them
   extends: [

@@ -1,14 +1,13 @@
 <template>
   <q-page padding>
     <ul>
-      <Task
-         :tasks="tasks"></Task>
+      <task
+         :tasks="tasks"></task>
     </ul>
   </q-page>
 </template>
 
 <script>
-import Task from '../components/Task.vue'
 export default {
   data () {
     return {
@@ -35,7 +34,7 @@ export default {
     }
   },
   components: {
-    Task
+    task: require('components/Task.vue').default
   }
 }
 </script>
