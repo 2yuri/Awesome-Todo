@@ -3,6 +3,8 @@
  * the ES6 features that are supported by your Node version. https://node.green/
  */
 
+const { QHeader, QFooter } = require("quasar")
+
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
@@ -85,6 +87,7 @@ module.exports = function (/* ctx */) {
       lang: 'en-us', // Quasar language pack
       config: {},
 
+      
       // Possible values for "importStrategy":
       // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
       // * 'all'  - Manually specify what to import
