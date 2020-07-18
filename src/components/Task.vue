@@ -1,13 +1,21 @@
 <template>
-    <li>
-        <div>{{task.name}} {{ index }}</div>
-        <small>{{ task.dueDate }} @ {{ task.dueTime }}</small>
-        <button @click="deleteTask(index)">X</button>
+    <ul>
+    <li v-for="(task, index) in tasks" :key="index">
+      <div>{{ task.name }} {{ index }}</div>
+      <small>{{ task.dueDate }} @ {{ task.dueTime }}</small>
+      <button @click="deleteTask(index)">X</button>
     </li>
+  </ul>
 </template>
 
 <script>
 export default {
-  props: ['task', 'index'],
+  name: 'task',
+  props: ['tasks'],
+  methods: {
+    deleteTask (index) {
+      this.tasks.splice(index, 1)
+    }
+  }
 }
 </script>

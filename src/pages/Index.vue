@@ -1,10 +1,8 @@
 <template>
   <q-page padding>
     <ul>
-      <task
-        v-for="{task, index} in tasks"
-        :task="task"
-        :index="index"></task>
+      <Task
+         :tasks="tasks"></Task>
     </ul>
   </q-page>
 </template>
@@ -16,16 +14,19 @@ export default {
     return {
       tasks: [
         {
+          id: 1,
           name: 'go to shop',
           dueDate: '2019/05/02',
           dueTime: '18:38'
         },
         {
+          id: 2,
           name: 'get bananas',
           dueDate: '2019/05/03',
           dueTime: '14:02'
         },
         {
+          id: 3,
           name: 'get apples',
           dueDate: '2019/05/04',
           dueTime: '16:00'
@@ -33,13 +34,8 @@ export default {
       ]
     }
   },
-  methods: {
-    deleteTask (index) {
-      this.tasks.splice(index, 1)
-    }
-  },
   components: {
-    'task' : Task
+    Task
   }
 }
 </script>
