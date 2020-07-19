@@ -3,35 +3,35 @@ import { uid } from 'quasar'
 
 const state = {
   tasks: {
-    ID1: {
-      name: 'go to shop',
-      completed: false,
-      dueDate: '2019/05/12',
-      dueTime: '18:30'
-    },
-    ID2: {
-      name: 'get bananas',
-      completed: false,
-      dueDate: '2019/05/13',
-      dueTime: '13:00'
-    },
-    ID3: {
-      name: 'get apples',
-      completed: false,
-      dueDate: '2019/05/14',
-      dueTime: '15:00'
-    }
+    // ID1: {
+    //   name: 'go to shop',
+    //   completed: false,
+    //   dueDate: '2019/05/12',
+    //   dueTime: '18:30'
+    // },
+    // ID2: {
+    //   name: 'get bananas',
+    //   completed: false,
+    //   dueDate: '2019/05/13',
+    //   dueTime: '13:00'
+    // },
+    // ID3: {
+    //   name: 'get apples',
+    //   completed: false,
+    //   dueDate: '2019/05/14',
+    //   dueTime: '15:00'
+    // }
   }
 }
 
 const mutations = {
-  updateTask(state, payload) {
+  updateTask (state, payload) {
     Object.assign(state.tasks[payload.id], payload.updates)
   },
-  deleteTask(state, id) {
+  deleteTask (state, id) {
     Vue.delete(state.tasks, id)
   },
-  addTask(state, payload){
+  addTask (state, payload){
     Vue.set(state.tasks, payload.id, payload.task)
   }
 }
@@ -54,9 +54,26 @@ const actions = {
 }
 
 const getters = {
-  tasks: (state) => {
-    return state.tasks
-  }
+  tasksTodo: (state) => {
+    let tasks = {}
+    Object.keys(state.tasks).forEach(function(key) {
+      let task = state.tasks[key]
+      if (!task.completed) {
+        tasks[key] = task
+      }
+    })
+    return tasks
+  },
+  tasksCompleted: (state) => {
+    let tasks = {}
+    Object.keys(state.tasks).forEach(function(key) {
+      let task = state.tasks[key]
+      if (task.completed) {
+        tasks[key] = task
+      }
+    })
+    return tasks
+  },
 }
 
 export default {

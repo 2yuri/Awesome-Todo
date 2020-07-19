@@ -1,58 +1,52 @@
 <template>
-  <q-page class="q-pa-md">
-    <q-list
-     v-if="Object.keys(tasks).length"
-     bordered
-     separator
-    >
+<q-page class="q-pa-md">
+    <NoTasks v-if="!Object.keys(tasksTodo).length" />
 
-      <task
-       v-for="(task, key) in tasks"
-       :key="key"
-       :task="task"
-       :id="key"
-      ></task>
+    <taskTodo v-if="Object.keys(tasksTodo).length" :tasksTodo="tasksTodo" />
 
-    </q-list>
+    <tasksCompleted v-if="Object.keys(tasksCompleted).length" :tasksCompleted="tasksCompleted" />
 
     <div class="absolute-bottom text-center q-mb-lg">
-      <q-btn
-        round
-        @click="showAddTask = true"
-        color="primary"
-        size="24px"
-        icon="add"
-      />
+        <q-btn round @click="showAddTask = true" color="primary" size="24px" icon="add" />
     </div>
 
     <q-dialog v-model="showAddTask">
-      <addtask @close="showAddTask = false" />
+        <addtask @close="showAddTask = false" />
     </q-dialog>
 
-  </q-page>
+</q-page>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {
+    mapGetters
+} from 'vuex'
 
 export default {
-  data () {
-    return {
-      showAddTask: false,
+    data() {
+        return {
+            showAddTask: false,
+        }
+    },
+    computed: {
+        ...mapGetters('tasks', ['tasksTodo', 'tasksCompleted'])
+    },
+    components: {
+        addtask: require('components/Modals/AddTask.vue').default,
+        taskTodo: require('components/Tasks/TasksTodo.vue').default,
+        tasksCompleted: require('components/Tasks/TasksCompleted.vue').default,
+        NoTasks: require('components/Tasks/NoTasks.vue').default
+    },
+    mounted() {
+        this.$root.$on('ShowAddTask', () => {
+            this.showAddTask = true
+        })
     }
-  },
-  computed: {
-    ...mapGetters('tasks', ['tasks'])
-  },
-  components: {
-    task: require('components/Tasks/Task.vue').default,
-    addtask: require('components/Modals/AddTask.vue').default
-  }
 }
 </script>
 
 <style>
-  .text-strikethrough {
+.text-strikethrough {
     text-decoration: line-through;
-  }
+}
 </style>
