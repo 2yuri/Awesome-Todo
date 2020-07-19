@@ -1,56 +1,34 @@
 <template>
   <q-page class="q-pa-md">
     <q-list
+     v-if="Object.keys(tasks).length"
      bordered
      separator
     >
-      <q-item
-       v-for="task in tasks"
-       :key="task.id"
-       @click="task.completed = !task.completed"
-       clickable
-       v-ripple
-       :class="!task.completed ? 'bg-orange-1' : 'bg-green-1'"
-      >
-        <q-item-section side top>
-          <q-checkbox v-model="task.completed" />
-        </q-item-section>
 
-        <q-item-section>
-          <q-item-label
-           :class="{ 'text-strikethrough' : task.completed}"
-          >
-            {{ task.name }}
-          </q-item-label>
-        </q-item-section>
+      <task
+       v-for="(task, key) in tasks"
+       :key="key"
+       :task="task"
+       :id="key"
+      ></task>
 
-        <q-item-section side>
-          <div class="row">
-            <div class="column justify-center">
-              <q-icon
-               class="q-mr-xs"
-                name="event"
-                size="18px"
-              />
-            </div>
-            <div class="column">
-              <q-item-label
-               caption
-               class="row justify-end"
-              >
-                {{task.dueDate}}
-              </q-item-label>
-              <q-item-label
-               caption
-               class="row justify-end"
-              >
-                <small>{{task.dueTime}}</small>
-              </q-item-label>
-            </div>
-          </div>
-        </q-item-section>
-      </q-item>
     </q-list>
+
+    <div class="absolute-bottom text-center q-mb-lg">
+      <q-btn
+        round
+        @click="showAddTask = true"
+        color="primary"
+        size="24px"
+        icon="add"
+      />
+    </div>
+
+    <q-dialog v-model="showAddTask">
+      <addtask @close="showAddTask = false" />
+    </q-dialog>
+
   </q-page>
 </template>
 
@@ -58,8 +36,17 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  data () {
+    return {
+      showAddTask: false,
+    }
+  },
   computed: {
     ...mapGetters('tasks', ['tasks'])
+  },
+  components: {
+    task: require('components/Tasks/Task.vue').default,
+    addtask: require('components/Modals/AddTask.vue').default
   }
 }
 </script>

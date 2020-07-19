@@ -20,8 +20,8 @@ module.exports = {
     // Base ESLint recommended rules
     // 'eslint:recommended',
 
-
-    // Uncomment any of the lines below to choose desired strictness,
+sd
+    // Uncomment any of the sdlines below to choose desired strictness,
     // but leave only one uncommented!
     // See https://eslint.vuejs.org/rules/#available-rules
     'plugin:vue/essential', // Priority A: Essential (Error Prevention)
